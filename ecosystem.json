@@ -1,0 +1,12 @@
+{
+  "apps" : [{
+    "name"    : "Recifun",
+    "script"  : "server.js",
+    "watch"   : true,
+    "cwd"     : "./",
+    "env"     : {
+      "database" : "mongodb://wakaka:1234qwer@ds059804.mlab.com:59804/langwang",
+      "PORT"    : 5000
+    }
+    }]
+}

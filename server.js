@@ -8,12 +8,12 @@ var randomstring = require("randomstring");
 var passport = require('passport');
 
 //personal library
-var database = require('./config/dbconfig');
+
 
 
 var port = process.env.PORT || 4000;
 
-mongoose.connect(database.url);
+mongoose.connect(process.env.database);
 
 var app = express();
 require('./config/passport')(passport);
@@ -29,4 +29,3 @@ require('./app/router')(app,passport);
 
 
 http.createServer(app).listen(port);
-
