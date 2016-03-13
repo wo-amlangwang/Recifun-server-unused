@@ -17,7 +17,6 @@ module.exports = function(passport) {
   passport.use('local-login', new LocalStrategy({
     usernameField : 'username',
     passwordField : 'password',
-    passReqToCallback : true
   },function(req,username,password,done) {
     user.findOne({'local.username' : username},function(err,user) {
       if(err){
@@ -37,7 +36,6 @@ module.exports = function(passport) {
   passport.use('local-register', new LocalStrategy({
     usernameField : 'username',
     passwordField : 'password',
-    passReqToCallback : true
   },function (req,username,password,done) {
     User.findOne({'local.username' : username},function (err,user) {
       if(err) {
@@ -66,7 +64,7 @@ module.exports = function(passport) {
     User.findOrCreate({'facebook.id' : profile.id},function (err,newUser,create) {
       if(String(process.env.DEBUG).localeCompare('true') === 0){
         console.log(profile);
-      }  
+      }
       newUser.facebook.email = profile.emails[0].value;
       newUser.facebook.name = profile.name.familyName + ' ' + profile.name.givenName;
       newUser.save(function(err,thisuser) {
