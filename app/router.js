@@ -24,6 +24,13 @@ module.exports = function(app,passport) {
     })(req,res,next);
   });
 
+  app.get('/api/facebook/token',
+    passport.authenticate('facebook-token'),
+    function (req, res) {
+      res.send(req.user? 200 : 401);
+    }
+  );
+
   app.post('/api/login',function(req,res,next) {
     passport.authenticate('local-login',function(err,user,info) {
       if(err){
