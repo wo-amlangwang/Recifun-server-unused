@@ -15,18 +15,17 @@ if(String(process.env.ENV).localeCompare("develop") === 0){
   port = process.env.PORT | 4000;
 }
 
-
 mongoose.connect(process.env.database);
 
 var app = express();
 require('./config/passport')(passport);
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
-app.use(session({secret : randomstring.generate(16),  cookie:{maxAge:60000}}));
+app.use(session({secret : randomstring.generate(16), cookie : {maxAge:60000}}));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(express.static(__dirname + '/app/www'));
 
 require('./app/router')(app,passport);
 http.createServer(app).listen(port,function (err) {

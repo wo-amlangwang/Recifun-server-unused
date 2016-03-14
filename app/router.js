@@ -1,4 +1,5 @@
 var middleware = require('./middleware/middleware');
+var upload = require('../config/S3');
 module.exports = function(app,passport) {
   app.post('/api/register',middleware.local.register);
 
@@ -16,11 +17,18 @@ module.exports = function(app,passport) {
     res.sendStatus(200);
   });
 
+  var form = "<!DOCTYPE HTML><html><body>" +
+"<form method='post' action='/upload' enctype='multipart/form-data'>" +
+"<input type='file' name='image'/>" +
+"<input type='submit' /></form>" +
+"</body></html>";
+
   app.get('/',function(req,res,next) {
-    if(req.isAuthenticated()){
-      res.send('yes');
-    }else {
-      res.send('no');
-    }
+    res.writeHead(200, {'Content-Type': 'text/html' });
+    res.end(form);
   });
+  app.post('/upload',upload.single('image'),function (req,res) {
+    res.sendStatus(200);
+  });
+
 };

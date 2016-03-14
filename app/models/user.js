@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 var findorcreate  = require('mongoose-findorcreate');
+var uuid = require('node-uuid');
 
 var userSchema = mongoose.Schema({
+  userid : { type: String, default: uuid.v1() },
   local :{
     username : String,
     password : String,
